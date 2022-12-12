@@ -10,7 +10,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <Script defer src={`https://maps.googleapis.com/maps/api/js?key=${APIKey}&v=weekly`} strategy='beforeInteractive' />
+        <Script defer src={`https://maps.googleapis.com/maps/api/js?key=${APIKey}&v=weekly&libraries=places`} strategy='beforeInteractive' />
       </body>
     </Html>
   )
