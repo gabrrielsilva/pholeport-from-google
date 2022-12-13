@@ -1,9 +1,11 @@
-import { useEffect, useRef } from 'react';
+import html2canvas from 'html2canvas';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '../components/Button';
 
 const STARTING_LOCATION = { lat: -23.5557714, lng: -46.6395571 };
 
 export default function Main() {
+  const [printSuccess, setPrintSuccess] = useState<boolean | null>(null);
   const panoramaContainer = useRef<HTMLElement>(null);
   const mapContainer = useRef<HTMLElement>(null);
   const placesSearchBox = useRef<HTMLInputElement>(null);
@@ -99,8 +101,18 @@ export default function Main() {
     });
   }
 
-  function print() {
-    // print panorama container...
+  async function print() {
+
+    try {
+      const canvas = await html2canvas(panoramaContainer.current as HTMLElement);
+      canvas.toBlob(async blob => {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob as Blob })]);
+      });
+      setPrintSuccess(true);
+    } catch (e) {
+      console.log('Oopss, algo deu errado!');
+      setPrintSuccess(false);
+    }
   }
 
   useEffect(() => {
@@ -110,7 +122,7 @@ export default function Main() {
   return (
     <>
       <main className='flex items-center justify-center w-screen h-screen bg-[#1f2028]'>
-        <div className='w-full max-w-6xl h-4/5'>
+        <div className='w-full max-w-6xl overflow-hidden rounded h-4/5'>
           <div className='grid w-full h-full grid-cols-2'>
             <section ref={panoramaContainer} className='relative overflow-hidden'>
               <details  open className='absolute bottom-0 left-0 z-10 p-2 pb-5 text-xl bg-white h-max w-max rounded-tr-md'>
