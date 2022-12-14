@@ -22,7 +22,8 @@ export default function Main() {
         pov: { heading: 270, pitch: 0 },
         visible: true,
         disableDefaultUI: true,
-        zoom: 0
+        zoom: 0,
+        
       }
     )
   
@@ -126,11 +127,16 @@ export default function Main() {
         <div className='w-full max-w-6xl overflow-hidden rounded h-4/5'>
           <div className='grid w-full h-full grid-cols-2'>
             <section ref={panoramaContainer} className='relative overflow-hidden'>
-              <details  open className='absolute bottom-0 left-0 z-10 p-2 pb-5 text-xl bg-white h-max w-max rounded-tr-md'>
-                <summary>Coords and address</summary>
-                <p ref={coords}></p>
-                <p ref={address}></p>
-              </details>
+              <div className='absolute inset-x-0 bottom-0 z-10 grid p-2 text-xl bg-white rounded-t h-max'>
+                <div className='flex gap-2'>
+                  <label className='font-bold'>Coordenadas:</label>
+                  <span ref={coords}></span>
+                </div>
+                <div className='flex gap-2'>
+                  <label className='font-bold'>Local:</label>
+                  <span className='whitespace-nowrap text-ellipsis' ref={address}></span>
+                </div>
+              </div>
             </section>
             <div className='w-full h-full'>
               <section ref={mapContainer} className='w-full h-1/2'></section>
