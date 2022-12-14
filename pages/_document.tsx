@@ -11,6 +11,7 @@ export default function Document() {
         <Main />
         <NextScript />
         <Script defer src={`https://maps.googleapis.com/maps/api/js?key=${APIKey}&v=weekly&libraries=places`} strategy='beforeInteractive' />
+        <Script src={`https://greggman.github.io/webgl-helpers/webgl-force-preservedrawingbuffer.js`} strategy='beforeInteractive' />
       </body>
     </Html>
   )
